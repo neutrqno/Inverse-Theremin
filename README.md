@@ -67,14 +67,7 @@ Edit `config/default_config.json` to customize:
 - Mapping curves (linear, exponential, logarithmic)
 - Smoothing/filtering parameters
 
-## Features
 
-- ✅ Real-time proximity polling
-- ✅ Flexible MIDI mapping (linear, exponential, logarithmic curves)
-- ✅ Smoothing and debouncing filters
-- ✅ Support for multiple MIDI CC channels
-- ✅ Live parameter adjustment
-- ✅ Logging and debugging tools
 
 ## API Documentation
 
