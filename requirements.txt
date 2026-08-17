@@ -1,0 +1,30 @@
+# Core dependencies
+python-dotenv==1.0.0
+requests==2.31.0
+mido==1.2.10
+
+# Google Home API
+pychromecast==14.0.0
+
+# MIDI utilities
+python-midi==0.2.5
+
+# Logging and utilities
+colorlog==6.8.0
+
+# Computer Vision (Hand Tracking)
+opencv-python==4.8.0.74
+mediapipe==0.10.0
+
+# Data processing
+numpy==1.24.3
+scipy==1.11.2
+
+# Optional: Web server for remote control
+flask==3.0.0
+
+# Development
+pytest==7.4.0
+pytest-cov==4.1.0
+black==23.7.0
+flake8==6.1.0

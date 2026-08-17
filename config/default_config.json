@@ -1,0 +1,80 @@
+{
+  "sensor": {
+    "source": "google_home_direct",
+    "poll_interval_ms": 50,
+    "timeout_ms": 5000,
+    "home_assistant": {
+      "url": "http://localhost:8123",
+      "token": "YOUR_TOKEN",
+      "entity_id": "sensor.google_home_mini_proximity"
+    },
+    "google_home_direct": {
+      "ip": "your_device_ip_here",
+      "port": 8008,
+      "device_name": "your_device_name",
+      "device_id": "your_device_id",
+      "mac_address": "your_mac_address_here"
+    }
+  },
+  "midi": {
+    "output_device": 0,
+    "channel": 1,
+    "cc_number": 74,
+    "min_value": 0,
+    "max_value": 127
+  },
+  "mapping": {
+    "proximity_min": 0,
+    "proximity_max": 255,
+    "curve": "linear",
+    "invert": false,
+    "description": "linear: direct mapping, exponential: curves favor far values, logarithmic: curves favor close values"
+  },
+  "processing": {
+    "smoothing": {
+      "enabled": true,
+      "factor": 0.7,
+      "description": "Factor between 0-1. Lower = more smoothing, higher = more responsive"
+    },
+    "deadzone": {
+      "enabled": false,
+      "min_threshold": 5,
+      "max_threshold": 250
+    },
+    "debounce_ms": 10
+  },
+  "logging": {
+    "level": "INFO",
+    "file": "logs/inverse_theremin.log",
+    "max_file_size_mb": 10,
+    "backup_count": 3
+  },
+  "profiles": {
+    "filter_cutoff": {
+      "cc_number": 74,
+      "curve": "exponential",
+      "proximity_min": 10,
+      "proximity_max": 200
+    },
+    "reverb_wet": {
+      "cc_number": 91,
+      "curve": "linear",
+      "proximity_min": 0,
+      "proximity_max": 255
+    },
+    "volume": {
+      "cc_number": 7,
+      "curve": "logarithmic",
+      "proximity_min": 50,
+      "proximity_max": 255
+    }
+  },
+  "hand_tracking": {
+    "control_mode": "distance",
+    "invert_distance": false,
+    "invert_vertical": false,
+    "invert_horizontal": false,
+    "smoothing_factor": 0.7,
+    "description": "control_mode: distance (Z), vertical (Y), horizontal (X), depth, mixed"
+  }
+}

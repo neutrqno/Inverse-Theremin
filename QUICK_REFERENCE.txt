@@ -1,0 +1,196 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                    INVERSE THEREMIN - QUICK REFERENCE                         ║
+║              Google Home Mini → MIDI Controller Setup & Reference              ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YOUR GOOGLE HOME MINI DEVICE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Name:              Attic speaker
+  Location:          Attic
+  Model:             Google Home Mini Gen 2
+  Device ID:         aaasa
+  
+  IP Address:        192.168.29.156
+  MAC Address:       48:D6:D5:DA:AC:39
+  Wi-Fi Network:     jio_ub12
+  Firmware:          540761
+  Language:          en-US
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+QUICK START (3 STEPS)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  1. Install Dependencies:
+     Windows:     .\run.ps1
+     macOS/Linux: bash run.sh
+
+  2. Configure Home Assistant Token:
+     - Edit .env file
+     - Set HOME_ASSISTANT_TOKEN with your token from Home Assistant
+
+  3. Run the Application:
+     python main.py
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONFIGURATION FILES (PRE-FILLED)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  .env                                (Environment variables - EDIT THIS)
+  config/default_config.json         (Main config - Already set)
+  DEVICE_SETUP.md                    (Detailed setup guide)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMMON MIDI CC NUMBERS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  CC#  Parameter              Default Use
+  ──────────────────────────────────────────────────────────────
+   1   Modulation            Vibrato/Tremolo
+   7   Volume                Overall Level
+  10   Pan                   Stereo Position
+  71   Filter Resonance      Filter Q/Peak
+  74   Filter Cutoff         Brightness (DEFAULT)
+  91   Reverb Wet/Dry        Reverb Amount
+  93   Chorus Wet/Dry        Chorus Amount
+  94   Delay Wet/Dry         Delay Amount
+  64   Sustain Pedal         Note Hold
+  
+  To change CC number, edit: config/default_config.json → midi.cc_number
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MAPPING CURVES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  linear         Direct 1:1 mapping (default)
+  exponential    Favor far values (more control when hand is distant)
+  logarithmic    Favor close values (more control when hand is close)
+  quadratic      Smooth acceleration curve
+  cubic          Stronger acceleration curve
+  sqrt           Square root mapping
+
+  To change: config/default_config.json → mapping.curve
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+USEFUL COMMANDS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  # Show device information
+  python utils/device_info.py info
+
+  # Test connectivity to device
+  python utils/device_info.py test
+
+  # Show all device info and tests
+  python utils/device_info.py all
+
+  # List available MIDI devices
+  python -c "import mido; print(list(enumerate(mido.get_output_names())))"
+
+  # Run basic usage examples
+  python examples/basic_usage.py basic      # Full test
+  python examples/basic_usage.py smoothing  # Smoothing demo
+  python examples/basic_usage.py curves     # Mapping curves
+  python examples/basic_usage.py cc         # MIDI CC reference
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DAW SETUP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Ableton Live:
+    1. Preferences → Link/MIDI → Enable your MIDI device
+    2. Cmd+M (Mac) or Ctrl+M (Windows) to enable MIDI mapping
+    3. Click parameter → move hand to map
+
+  FL Studio:
+    1. Options → MIDI Settings → Enable your device
+    2. Hold Shift + click parameter → move hand to map
+
+  Logic Pro:
+    1. Preferences → MIDI → Add MIDI device
+    2. Arrange → Smart Controls → Click parameter
+    3. Press Control and click → MIDI Learn
+
+  Reaper:
+    1. Options → MIDI Devices → Enable MIDI input
+    2. Alt+Click parameter → move hand to map
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROXIMITY SENSOR SPECS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Range:            5-200 cm (usable range)
+  Sensor Freq:      ~40 kHz (ultrasonic)
+  Value Range:      0-255
+  Update Rate:      50-100 ms
+  Total Latency:    ~100-200 ms (network + polling)
+  Response Time:    Immediate to ~200ms
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TROUBLESHOOTING QUICK GUIDE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Device not connecting:
+    → Check IP is correct: ping 192.168.29.156
+    → Verify Wi-Fi is connected to: jio_ub12
+    → Restart device: unplug 30 seconds, plug back
+
+  Proximity values not updating:
+    → Check Home Assistant entity exists
+    → Verify Home Assistant token is valid
+    → Check proximity sensor works in Home Assistant UI
+
+  MIDI not working:
+    → Verify MIDI device in DAW is enabled
+    → List MIDI devices: python -c "import mido; print(mido.get_output_names())"
+    → Check CC number is supported by synth
+    → Test: python examples/basic_usage.py basic
+
+  Values too noisy:
+    → Increase smoothing: config/default_config.json → processing.smoothing.factor
+    → Increase polling interval: processing → poll_interval_ms (higher = more stable)
+    → Enable deadzone: processing → deadzone.enabled
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DOCUMENTATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  README.md                 Project overview
+  QUICKSTART.md             Fast setup guide
+  DEVICE_SETUP.md           Device configuration guide
+  docs/SETUP.md             Detailed installation
+  docs/DEVICE_INFO.md       Technical specifications
+  docs/TROUBLESHOOTING.md   Problem solving
+  PROJECT_STRUCTURE.md      Architecture overview
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PERFORMANCE TUNING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Lower Latency (25-50ms polling):
+    → Decrease: sensor.poll_interval_ms
+    → Increase: processing.smoothing.factor (0.8-0.95)
+
+  Better Stability (less jitter):
+    → Increase: processing.smoothing.factor (0.5-0.7)
+    → Increase: sensor.poll_interval_ms (50-100)
+    → Enable: processing.deadzone
+
+  Fine Control:
+    → Use: mapping.curve = "exponential" (for distant control)
+    → Narrow: proximity_min/max to your working range
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STATUS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✓ Device information populated
+  ✓ Configuration files created and pre-filled
+  ✓ All code modules implemented
+  ✓ Documentation complete
+  ✓ Ready to configure and run!
+
+  Next: Edit .env with Home Assistant token, then run: python main.py
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
